@@ -56,14 +56,10 @@ app.post('/send', (req, res) => {
   let publicKey = ""
   let privateKey = privateK
 
-  if(sender === keys[0].key.public.slice(0, 20)) {
-    publicKey = keys[0].key.public
-  }
-  if(sender === keys[1].key.public.slice(0, 20)) {
-    publicKey = keys[1].key.public
-  }
-  if(sender === keys[2].key.public.slice(0,20)) {
-    publicKey = keys[2].key.public
+  for (let i = 0; i < keys.length; i++) {
+    if (sender === keys[i].key.public.slice(0, 20)) {
+      publicKey = keys[i].key.public
+    }
   }
 
   const key = ec.keyFromPrivate(privateKey)
@@ -75,7 +71,6 @@ app.post('/send', (req, res) => {
     s: signaturePrev.s.toString(16)
   }
 
-  console.log(pKey.verify(transactionHash.toString(), signature))
   if (pKey.verify(transactionHash.toString(), signature)) {
     balances[sender] -= amount;
     balances[recipient] = (balances[recipient] || 0) + +amount;

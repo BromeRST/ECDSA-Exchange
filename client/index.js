@@ -19,9 +19,10 @@ document.getElementById("transfer-amount").addEventListener('click', () => {
   const sender = document.getElementById("exchange-address").value;
   const amount = document.getElementById("send-amount").value;
   const recipient = document.getElementById("recipient").value;
+  const privateK = document.getElementById("private-key").value; 
 
   const body = JSON.stringify({
-    sender, amount, recipient
+    sender, amount, recipient, privateK
   });
 
   const request = new Request(`${server}/send`, { method: 'POST', body });

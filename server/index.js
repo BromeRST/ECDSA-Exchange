@@ -53,9 +53,6 @@ app.get('/balance/:address', (req, res) => {
 app.post('/send', (req, res) => {
   const {sender, recipient, amount, privateK} = req.body;
 
-  console.log(privateK)
-  console.log(amount)
-
   let publicKey = ""
   let privateKey = privateK
 
@@ -77,7 +74,6 @@ app.post('/send', (req, res) => {
     r: signaturePrev.r.toString(16),
     s: signaturePrev.s.toString(16)
   }
-  console.log(signature)
 
   console.log(pKey.verify(transactionHash.toString(), signature))
   if (pKey.verify(transactionHash.toString(), signature)) {
